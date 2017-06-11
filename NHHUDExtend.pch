@@ -1,0 +1,22 @@
+//
+//  NHHUDExtend.pch
+//  NHHUDExtendDemo
+//
+//  Created by neghao on 2017/6/9.
+//  Copyright © 2017年 neghao. All rights reserved.
+//
+
+#ifndef NHHUDExtend_pch
+#define NHHUDExtend_pch
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+#endif
+
+#endif /* NHHUDExtend_pch */
