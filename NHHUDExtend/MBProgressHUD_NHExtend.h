@@ -19,9 +19,12 @@ typedef NS_ENUM(NSInteger, NHHUDPostion) {
     NHHUDPostionCenten,//中间
     NHHUDPostionBottom,//下面
 };
+typedef void((^NHCancelation)(MBProgressHUD *hud));
+typedef void((^NHActiveBlock)(id odj));
 
 @interface MBProgressHUD ()
 @property (nonatomic, assign) NHHUDStyle hudStyle;
 @property (nonatomic, assign) NHHUDPostion hudPostion;
-
+@property (nonatomic, copy) NHCancelation cancelation;
+@property (nonatomic, copy) NHActiveBlock activeBlock;
 @end

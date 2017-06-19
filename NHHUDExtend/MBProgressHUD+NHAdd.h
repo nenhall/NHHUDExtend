@@ -18,14 +18,22 @@ UIKIT_EXTERN CGFloat const delayTime;
  * 2: 自定义风格<设置 NHCustomHudStyleBackgrandColor 及 NHCustomHudStyleContentColor>
  * 修改这个值可以减少频繁的调用setHudStyle，
  * eg：设置为1时，调用任何这个扩展内的方法，显示出hud的UI效果都会为黑底白字风格
+ * 这里为了展示使用的是release为黑色
  */
+#ifdef DEBUG
+#define NHDefaultHudStyle 0
+#else
 #define NHDefaultHudStyle 1
+#endif
 
 /**
  * 风格为自定义时，在这里设置颜色
  */
 #define NHCustomHudStyleBackgrandColor  [UIColor colorWithWhite:0.f alpha:0.7f]
 #define NHCustomHudStyleContentColor    [UIColor colorWithWhite:1.f alpha:0.7f]
+
+typedef void((^NHDownProgress)(MBProgressHUD *hud));
+typedef void((^NHCancelationssss)(MBProgressHUD *hud));
 
 
 @interface MBProgressHUD (NHAdd)
@@ -62,24 +70,45 @@ UIKIT_EXTERN CGFloat const delayTime;
 /**
  *  文字+菊花提示,不自动消失
  *
- *  @param message 要显示的文字
+ *  @param title 要显示的文字
  *  @param view    要添加的View
  */
-+ (void)showMessage:(NSString *)message toView:(UIView *)view;
++ (void)showTitle:(NSString *)title toView:(UIView *)view;
 
-+ (void)showMessage:(NSString *)message toView:(UIView *)view postion:(NHHUDPostion)postion;
++ (void)showTitle:(NSString *)title toView:(UIView *)view postion:(NHHUDPostion)postion;
 
-+ (void)showMessage:(NSString *)message toView:(UIView *)view style:(NHHUDStyle)style;
++ (void)showTitle:(NSString *)title toView:(UIView *)view style:(NHHUDStyle)style;
 
-+ (void)showMessage:(NSString *)message
++ (void)showTitle:(NSString *)title
              toView:(UIView *)view
             postion:(NHHUDPostion)postion
               style:(NHHUDStyle)style;
 
 
 
++ (MBProgressHUD *)showLoadTitle:(NSString *)title toView:(UIView *)view;
 
 
++ (MBProgressHUD *)showDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
+
+
++ (MBProgressHUD *)showAnnularDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
+
+
++ (MBProgressHUD *)showBarDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
+
+
++ (MBProgressHUD *)showCancelationDeterminateToView:(UIView *)view
+                                              title:(NSString *)title
+                                        cancelTitle:(NSString *)cancelTitle
+                                           progress:(NHDownProgress)progress
+                                        cancelation:(NHCancelation)cancelation;
+
++ (void)showCustomView:(UIImage *)image toView:(UIView *)toView title:(NSString *)title;
+
++ (void)showModelSwitchingToView:(UIView *)toView title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
+    
+    
 /**
  *  自定义图片的提示，x秒后自动消息
  *

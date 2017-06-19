@@ -330,7 +330,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     bezelView.alpha = 0.f;
     [self addSubview:bezelView];
     _bezelView = bezelView;
-//    [self updateBezelMotionEffects];
+    [self updateBezelMotionEffects];
 
     UILabel *label = [UILabel new];
     label.adjustsFontSizeToFitWidth = NO;
