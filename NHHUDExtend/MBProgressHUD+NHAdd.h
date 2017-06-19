@@ -107,8 +107,22 @@ typedef void((^NHCancelationssss)(MBProgressHUD *hud));
 + (void)showCustomView:(UIImage *)image toView:(UIView *)toView title:(NSString *)title;
 
 + (void)showModelSwitchingToView:(UIView *)toView title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
-    
-    
+
++ (MBProgressHUD *)showNetworkingNSProgressToView:(UIView *)view title:(NSString *)title;
+
++ (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title backgroundColor:(UIColor *)backgroundColor;
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view
+                     contentColor:(UIColor *)contentColor
+                  backgroundColor:(UIColor *)backgroundColor
+                            title:(NSString *)title;
+
+
+
 /**
  *  自定义图片的提示，x秒后自动消息
  *

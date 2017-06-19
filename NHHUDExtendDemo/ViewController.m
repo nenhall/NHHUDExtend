@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "MBProgressHUD+NHAdd.h"
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource,NSURLSessionDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSArray *listTitle;
 @end
@@ -29,7 +29,12 @@
                    @"Determinate Model",
                    @"Bar Determinate",
                    @"Custom Load View",
-                   @"Mode Switching Auto Change"
+                   @"Mode Switching Auto Change",
+                   @"Networking Request/down",
+                   @"Determinate NSProgress",
+                   @"DimBackground",
+                   @"Custom Content View Color",
+                   @"Custom Load And Title Color"
                    ];
     
 }
@@ -54,6 +59,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+#warning 在实际使用中 MBProgressHUD Block 内需要弱化self的地方，请自行添加，这里只为了演示使用方法，未做处理
+
     NSInteger row = indexPath.row;
     switch (row) {
         case 0:
@@ -93,7 +101,7 @@
                 });
                 
             } cancelation:^(MBProgressHUD *hud) {
-                [hud hideAnimated:YES];
+                [self cancelDown:hud];
             }];
         }
             break;
@@ -120,13 +128,15 @@
                 });
             }];
         }
-            
             break;
+            
         case 8: {
-            [MBProgressHUD showCustomView:[[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] toView:self.view title:@"Done"];
+            [MBProgressHUD showCustomView:[[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                   toView:self.view
+                                    title:@"Done"];
         }
-            
             break;
+            
         case 9: {
             [MBProgressHUD showModelSwitchingToView:self.view title:@"Preparing..." hudBlock:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
@@ -138,7 +148,53 @@
                 });
             }];
         }
+            break;
             
+        case 10: {
+            [MBProgressHUD  showNetworkingNSProgressToView:self.view title:@"loading..."];
+            [self doSomeNetworkWorkWithProgress];
+        }
+            break;
+            
+        case 11: {
+            // Set up NSProgress
+            NSProgress *progressObject = [NSProgress progressWithTotalUnitCount:100];
+            [MBProgressHUD  showDeterminateWithNSProgress:progressObject toView:self.view title:@"loading..." hudBlock:^(MBProgressHUD *hud) {
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    // Do something useful in the background and update the HUD periodically.
+                    [self doSomeWorkWithProgressObject:hud.progressObject];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
+                });
+            }];
+            [self doSomeNetworkWorkWithProgress];
+        }
+            break;
+            
+        case 12: {
+           MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
+                                    title:@"loading..."
+                          backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]];
+            [self autoHiddenHud:hud];
+        }
+            break;
+            
+        case 13: {
+          MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.view
+                             contentColor:[UIColor redColor]
+                                    title:@"loading..."];
+            [self autoHiddenHud:hud];
+        }
+            break;
+            
+        case 14: {
+            [MBProgressHUD showLoadToView:self.view
+                             contentColor:[UIColor redColor]
+                          backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
+                                    title:@"loading..."];
+            
+        }
             break;
         default:
             break;
@@ -153,11 +209,43 @@
 
 - (IBAction)leftItemAction:(UIBarButtonItem *)sender {
     
+#ifdef DEBUG 
+    NSString *meg = @"切换到release模式后重新运行就即可,或者手动修改宏：\nNHDefaultHudStyle = 1";
+#else
+    NSString *meg = @"切换到Debu模式后重新运行就即可，或者手动修改宏：\nNHDefaultHudStyle = 0";
+#endif
+    
+    [[[UIAlertView alloc] initWithTitle:@"提示"
+                                message:meg
+                               delegate:self
+                      cancelButtonTitle:@"确定"
+                      otherButtonTitles:nil, nil] show];
 }
 
 
-- (void)cancelDown:(MBProgressHUD *)hub {
+- (void)cancelDown:(MBProgressHUD *)hud {
+    [hud hideAnimated:YES];
+    NSLog(@"点击了取消");
+}
 
+
+- (void)autoHiddenHud:(MBProgressHUD *)hud {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [self doSomeWorkWithProgress:hud];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
+        });
+    });
+}
+
+- (void)doSomeWorkWithProgressObject:(NSProgress *)progressObject {
+    // This just increases the progress indicator in a loop.
+    while (progressObject.fractionCompleted < 1.0f) {
+        if (progressObject.isCancelled) break;
+        [progressObject becomeCurrentWithPendingUnitCount:1];
+        [progressObject resignCurrent];
+        usleep(50000);
+    }
 }
 
 
@@ -170,6 +258,14 @@
         });
         usleep(50000);
     }
+}
+
+- (void)doSomeNetworkWorkWithProgress {
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    NSURL *URL = [NSURL URLWithString:@"https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/HT1425/sample_iPod.m4v.zip"];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:URL];
+    [task resume];
 }
 
 - (void)doSomeWorkWithMixedProgress:(MBProgressHUD *)hud {
@@ -202,6 +298,35 @@
         hud.label.text = NSLocalizedString(@"Completed", @"HUD completed title");
     });
     sleep(2);
+}
+
+
+
+#pragma mark - NSURLSessionDelegate
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    // Do something with the data at location...
+    
+    // Update the UI on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+        UIImage *image = [[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        hud.customView = imageView;
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.label.text = NSLocalizedString(@"Completed", @"HUD completed title");
+        [hud hideAnimated:YES afterDelay:3.f];
+    });
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    float progress = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
+    
+    // Update the UI on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MBProgressHUD *hud = [MBProgressHUD HUDForView:self.view];
+        hud.mode = MBProgressHUDModeDeterminate;
+        hud.progress = progress;
+    });
 }
 
 @end

@@ -239,12 +239,60 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     }
 }
 
-+ (MBProgressHUD *)showDeterminateNSProgressTitle:(NSString *)title toView:(UIView *)view {
++ (MBProgressHUD *)showDeterminateNSProgressToView:(UIView *)view title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeDeterminate;
     return hud;
 }
 
+
++ (MBProgressHUD *)showNetworkingNSProgressToView:(UIView *)view title:(NSString *)title {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.minSize = CGSizeMake(150.f, 100.f);
+    return hud;
+}
+
++ (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHDownProgress)hudBlock {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    if (hudBlock) {
+        hudBlock(hud);
+    }
+    return hud;
+}
+
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title backgroundColor:(UIColor *)backgroundColor {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.backgroundView.backgroundColor = backgroundColor;
+    return hud;
+}
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.contentColor = contentColor;
+//    hud.bezelView.backgroundColor = [UIColor blackColor];
+//    hud.label.textColor = [UIColor redColor];
+//    hud.backgroundView.color = [UIColor blackColor];
+    
+    return hud;
+}
+
++ (MBProgressHUD *)showLoadToView:(UIView *)view
+                     contentColor:(UIColor *)contentColor
+                  backgroundColor:(UIColor *)backgroundColor
+                            title:(NSString *)title {
+    
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.contentColor = contentColor;
+    //    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.backgroundView.color = backgroundColor;
+    
+    return hud;
+}
+
+
+//+ (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor contentColor:(UIColor *)contentColor  title:(NSString *)title {
 
 
 + (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *))hudBlock {
