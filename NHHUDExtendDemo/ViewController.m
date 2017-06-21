@@ -65,22 +65,23 @@
     NSInteger row = indexPath.row;
     switch (row) {
         case 0:
-            [MBProgressHUD showTitle:@"我在这里你知道吗？？" toView:self.view postion:NHHUDPostionBottom];
+            [MBProgressHUD showToView:self.view postion:NHHUDPostionBottom title:@"我在这里你知道吗？？"];
             break;
         case 1:
-            [MBProgressHUD showTitle:@"我在这里你知道吗？？" toView:self.navigationController.view postion:NHHUDPostionTop style:NHHUDStyleDefault];
+            [MBProgressHUD showToView:self.navigationController.view postion:NHHUDPostionTop style:NHHUDStyleDefault title:@"我在这里你知道吗？"];
             break;
             
         case 2:
-            [MBProgressHUD showLoadTitle:nil toView:self.view];
+            [MBProgressHUD showLoadToView:self.view title:nil];
             break;
         
         case 3:
-            [MBProgressHUD showLoadTitle:@"loading" toView:self.view];
+            [MBProgressHUD showLoadToView:self.view title:@"loading"];
+
             break;
             
         case 4: {
-            [MBProgressHUD showAnnularDeterminateTitle:@"下载中..." toView:self.view progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showAnnularDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -107,7 +108,7 @@
             break;
 
         case 6: {
-            [MBProgressHUD showDeterminateTitle:@"loading" toView:self.view progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -119,7 +120,7 @@
             
             break;
         case 7: {
-            [MBProgressHUD showBarDeterminateTitle:@"loading" toView:self.view progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showBarDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -173,9 +174,9 @@
             break;
             
         case 12: {
-           MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
-                                    title:@"loading..."
-                          backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]];
+            MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
+                                               backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
+                                                         title:@"loading..."];
             [self autoHiddenHud:hud];
         }
             break;

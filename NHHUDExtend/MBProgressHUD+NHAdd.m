@@ -120,30 +120,28 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 
-+ (void)showTitle:(NSString *)title toView:(UIView *)view {
-
++ (void)showToView:(UIView *)view title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
 }
 
-+ (void)showTitle:(NSString *)title toView:(UIView *)view postion:(NHHUDPostion)postion {
++ (void)showToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
     hud.hudPostion = postion;
 }
 
 
-+ (void)showTitle:(NSString *)title toView:(UIView *)view style:(NHHUDStyle)style {
++ (void)showToView:(UIView *)view style:(NHHUDStyle)style title:(NSString *)title{
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
     hud.hudStyle = style;
 }
 
-
-+ (void)showTitle:(NSString *)title
-             toView:(UIView *)view
-            postion:(NHHUDPostion)postion
-              style:(NHHUDStyle)style {
++ (void)showToView:(UIView *)view
+           postion:(NHHUDPostion)postion
+             style:(NHHUDStyle)style
+             title:(NSString *)title {
     
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
@@ -152,14 +150,14 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 
-+ (MBProgressHUD *)showLoadTitle:(NSString *)title toView:(UIView *)view {
++ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeIndeterminate;
     return hud;
 }
 
 
-+ (MBProgressHUD *)showDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress {
++ (MBProgressHUD *)showDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeDeterminate;
     if (progress) {
@@ -169,7 +167,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 
-+ (MBProgressHUD *)showAnnularDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress {
++ (MBProgressHUD *)showAnnularDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     if (progress) {
@@ -179,7 +177,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 //横向bar进度条
-+ (MBProgressHUD *)showBarDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress {
++ (MBProgressHUD *)showBarDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeDeterminateHorizontalBar;
     if (progress) {
@@ -261,7 +259,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 
-+ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title backgroundColor:(UIColor *)backgroundColor {
++ (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
     hud.backgroundView.backgroundColor = backgroundColor;

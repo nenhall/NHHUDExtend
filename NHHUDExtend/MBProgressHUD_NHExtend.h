@@ -9,7 +9,7 @@
 #import "MBProgressHUD.h"
 
 typedef NS_ENUM(NSInteger, NHHUDStyle) {
-    NHHUDStyleDefault,//默认是白底黑字
+    NHHUDStyleWhiteBackground,//默认是白底黑字 Default
     NHHUDStyleBlack,//黑底白字
     NHHUDStyleCustom,//:自定义风格<由自己设置自定义风格的颜色>
 };

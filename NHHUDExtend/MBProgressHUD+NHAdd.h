@@ -73,30 +73,25 @@ typedef void((^NHCancelationssss)(MBProgressHUD *hud));
  *  @param title 要显示的文字
  *  @param view    要添加的View
  */
-+ (void)showTitle:(NSString *)title toView:(UIView *)view;
++ (void)showToView:(UIView *)view title:(NSString *)title;
 
-+ (void)showTitle:(NSString *)title toView:(UIView *)view postion:(NHHUDPostion)postion;
++ (void)showToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title;
 
-+ (void)showTitle:(NSString *)title toView:(UIView *)view style:(NHHUDStyle)style;
++ (void)showToView:(UIView *)view style:(NHHUDStyle)style title:(NSString *)title;
 
-+ (void)showTitle:(NSString *)title
-             toView:(UIView *)view
++ (void)showToView:(UIView *)view
             postion:(NHHUDPostion)postion
-              style:(NHHUDStyle)style;
+             style:(NHHUDStyle)style
+             title:(NSString *)title;
 
 
++ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
-+ (MBProgressHUD *)showLoadTitle:(NSString *)title toView:(UIView *)view;
++ (MBProgressHUD *)showDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
 
++ (MBProgressHUD *)showAnnularDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
 
-+ (MBProgressHUD *)showDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
-
-
-+ (MBProgressHUD *)showAnnularDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
-
-
-+ (MBProgressHUD *)showBarDeterminateTitle:(NSString *)title toView:(UIView *)view progress:(NHDownProgress)progress;
-
++ (MBProgressHUD *)showBarDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
 
 + (MBProgressHUD *)showCancelationDeterminateToView:(UIView *)view
                                               title:(NSString *)title
@@ -112,7 +107,7 @@ typedef void((^NHCancelationssss)(MBProgressHUD *hud));
 
 + (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
 
-+ (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title backgroundColor:(UIColor *)backgroundColor;
++ (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor title:(NSString *)title;
 
 + (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
 
