@@ -6,8 +6,10 @@
 //  Copyright © 2017年 neghao. All rights reserved.
 //
 
-#import "MBProgressHUD.h"
 #import "MBProgressHUD_NHExtend.h"
+
+@class MBProgressHUD;
+
 
 //默认持续显示时间(x秒后消失)
 UIKIT_EXTERN CGFloat const delayTime;
@@ -32,182 +34,213 @@ UIKIT_EXTERN CGFloat const delayTime;
 #define NHCustomHudStyleBackgrandColor  [UIColor colorWithWhite:0.f alpha:0.7f]
 #define NHCustomHudStyleContentColor    [UIColor colorWithWhite:1.f alpha:0.7f]
 
-typedef void((^NHDownProgress)(MBProgressHUD *hud));
-typedef void((^NHCancelationssss)(MBProgressHUD *hud));
-
+typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 @interface MBProgressHUD (NHAdd)
 
-+ (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *hud))hudBlock;
-- (MBProgressHUD *(^) (UIView *))toView;
-- (MBProgressHUD *(^) (NSString *))title;
-- (MBProgressHUD *(^) (NSString *))customIcon;
+
+//*************************************************************************************//
+//      所有类方法中有返回本类的，则不会自动消失，返回值为void的都会自动消息(默认值:delayTime)      //
+//      所有类方法中有返回本类的，则不会自动消失，返回值为void的都会自动消息(默认值:delayTime)      //
+//      所有类方法中有返回本类的，则不会自动消失，返回值为void的都会自动消息(默认值:delayTime)      //
+//*************************************************************************************//
 
 
 /**
- 只有默认的加载示图
+ 纯加载图
  */
 + (MBProgressHUD *)showOnlyLoadToView:(UIView *)view;
 
 
 /**
- *  自动消失成功提示，带默认图
+ 纯文字
+ */
++ (void)showOnlyTextToView:(UIView *)view title:(NSString *)title;
+
+
+/**
+ *  成功提示 - 自动消失，带默认成功图
  *
  *  @param success 要显示的文字
- *  @param view    要添加的view
  */
 + (void)showSuccess:(NSString *)success toView:(UIView *)view;
 
+
 /**
- *  自动消失错误提示,带默认图
+ *  错误提示 - 自动消失, 带默认错误图
  *
  *  @param error 要显示的错误文字
- *  @param view  要添加的View
  */
 + (void)showError:(NSString *)error toView:(UIView *)view;
 
 
 /**
- *  文字+菊花提示,不自动消失
- *
- *  @param title 要显示的文字
- *  @param view    要添加的View
+ 纯文字+自定位置(上、中、下) - 自动消失
+ @param postion 位置：上、中、下
  */
-+ (void)showToView:(UIView *)view title:(NSString *)title;
++ (void)showTitleToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title;
 
-+ (void)showToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title;
++ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud;
 
-+ (void)showToView:(UIView *)view style:(NHHUDStyle)style title:(NSString *)title;
+/**
+ 纯文字+自定背景风格 - 自动消失
 
-+ (void)showToView:(UIView *)view
-            postion:(NHHUDPostion)postion
-             style:(NHHUDStyle)style
-             title:(NSString *)title;
+ @param contentStyle 背景风格：白、黑
+ */
++ (void)showTitleToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title;
 
 
+/**
+ 纯标题 + 详情 + 自定背景风格 - 自动消失
+ 
+ @param contentStyle 背景风格：白、黑
+ */
++ (void)showDetailToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title detail:(NSString *)detail;
+
+
+/**
+ 纯文字+自定位置、风格 - 自动消失
+
+ @param postion 位置
+ @param contentStyle 风格
+ */
++ (void)showTitleToView:(UIView *)view
+                postion:(NHHUDPostion)postion
+                  contentStyle:(NHHUDContentStyle)contentStyle
+                  title:(NSString *)title;
+
+
+/**
+ 文字+默认图
+ */
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
-+ (MBProgressHUD *)showDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
 
-+ (MBProgressHUD *)showAnnularDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
 
-+ (MBProgressHUD *)showBarDeterminateToView:(UIView *)view title:(NSString *)title progress:(NHDownProgress)progress;
+/**
+ 纯文字+自定位置 x秒后自动消失
+ 
+ @param delay 延迟消失时间
+ */
++ (void)showTitleToView:(UIView *)view
+           contentStyle:(NHHUDContentStyle)contentStyle
+                  title:(NSString *)title
+             afterDelay:(NSTimeInterval)delay;
 
-+ (MBProgressHUD *)showCancelationDeterminateToView:(UIView *)view
-                                              title:(NSString *)title
-                                        cancelTitle:(NSString *)cancelTitle
-                                           progress:(NHDownProgress)progress
-                                        cancelation:(NHCancelation)cancelation;
 
+/**
+ 文字 + 进度条
+
+ @param progressStyle 进度条风格
+ @param progress 当前进度值
+ */
++ (MBProgressHUD *)showDownToView:(UIView *)view
+                    progressStyle:(NHHUDProgressStyle)progressStyle
+                            title:(NSString *)title
+                         progress:(NHCurrentHud)progress;
+
+
+/**
+ 文字 + 进度条 + 取消按钮
+ 
+ @param progressStyle 进度条风格
+ @param progress 当前进度值
+ @param cancelTitle 取消按钮名称
+ @param cancelation 取消按钮的点击事件
+ */
++ (MBProgressHUD *)showCancelationToView:(UIView *)view
+                           progressStyle:(NHHUDProgressStyle)progressStyle
+                                   title:(NSString *)title
+                             cancelTitle:(NSString *)cancelTitle
+                                progress:(NHCurrentHud)progress
+                             cancelation:(NHCancelation)cancelation;
+
+
+/**
+ 文字 + 自定图片
+ @param image 图片
+ */
 + (void)showCustomView:(UIImage *)image toView:(UIView *)toView title:(NSString *)title;
 
-+ (void)showModelSwitchingToView:(UIView *)toView title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
 
-+ (MBProgressHUD *)showNetworkingNSProgressToView:(UIView *)view title:(NSString *)title;
+/**
+ 文字 + 默认加载图 + 自定朦胧层背景色
 
-+ (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHDownProgress)hudBlock;
-
+ @param backgroundColor 自定背景色
+ */
 + (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor title:(NSString *)title;
 
+
+/**
+ 文字 + 默认加载图 + 自定文字、加载图颜色
+
+ @param contentColor 自定文字、加载图颜色
+ */
 + (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
 
+
+/**
+ 文字 + 默认加载图 + 自定文图内容颜色 + 自定朦胧层背景色
+
+ @param contentColor 自定文字、加载图颜色
+ @param backgroundColor + 自定朦胧层背景色
+ */
 + (MBProgressHUD *)showLoadToView:(UIView *)view
                      contentColor:(UIColor *)contentColor
                   backgroundColor:(UIColor *)backgroundColor
                             title:(NSString *)title;
 
-
-
 /**
- *  自定义图片的提示，x秒后自动消息
- *
- *  @param iconName 图片地址(建议不要太大的图片)
- *  @param title 要显示的文字
- *  @param view 要添加的view
- *  @param time 停留时间
+ 文字 + 默认加载图 + 自定文字及加载图颜色 + 自定朦胧层背景色
+ 
+ @param titleColor 自定文字
+ @param bezelViewColor 加载图背景颜色
+ @param backgroundColor + 自定朦胧层背景色
  */
-+ (void)showCustomIcon:(NSString *)iconName Title:(NSString *)title ToView:(UIView *)view RemainTime:(CGFloat)time;
-
-
-
-
-
-
-
-
-
-
-
++ (MBProgressHUD *)showLoadToView:(UIView *)view
+                       titleColor:(UIColor *)titleColor
+                   bezelViewColor:(UIColor *)bezelViewColor
+                  backgroundColor:(UIColor *)backgroundColor
+                            title:(NSString *)title;
 
 /**
- *  快速显示一条提示信息
- *
- *  @param message 要显示的文字
+ 状态变换
  */
-+ (void)showAutoMessage:(NSString *)message;
++ (void)showModelSwitchToView:(UIView *)toView title:(NSString *)title hudBlock:(NHCurrentHud)hudBlock;
 
 
 /**
- *  自动消失提示，无图
- *
- *  @param message 要显示的文字
- *  @param view    要添加的View
+ 文字 + 进度 网络请求
  */
-+ (void)showAutoMessage:(NSString *)message ToView:(UIView *)view;
++ (MBProgressHUD *)showNetworkingNSProgressToView:(UIView *)view title:(NSString *)title;
++ (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHCurrentHud)hudBlock;
 
 
 /**
- *  自定义停留时间，有图
- *
- *  @param message 要显示的文字
- *  @param view    要添加的View
- *  @param time    停留时间
- */
-+(void)showIconMessage:(NSString *)message ToView:(UIView *)view RemainTime:(CGFloat)time;
+ 隐藏ProgressView
 
-
-/**
- *  自定义停留时间，无图
- *
- *  @param message 要显示的文字
- *  @param view 要添加的View
- *  @param time 停留时间
- */
-+(void)showMessage:(NSString *)message ToView:(UIView *)view RemainTime:(CGFloat)time;
-
-
-/**
- *  加载视图
- *
- *  @param view 要添加的View
- */
-+ (void)showLoadToView:(UIView *)view;
-
-
-/**
- *  进度条View
- *
- *  @param view     要添加的View
- *  @param model    进度条的样式
- *  @param text     显示的文字
- *
- *  @return 返回使用
- */
-+ (MBProgressHUD *)showProgressToView:(UIView *)view ProgressModel:(MBProgressHUDMode)model Text:(NSString *)text;
-
-
-/**
- *  隐藏ProgressView
- *
- *  @param view superView
  */
 + (void)hideHUDForView:(UIView *)view;
 
 
 /**
- *  快速从window中隐藏ProgressView
+ 隐藏（从window）
  */
 + (void)hideHUD;
 
 
++ (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *hud))hudBlock;
+
+- (MBProgressHUD *(^) (NSString *))title;
+- (MBProgressHUD *(^) (UIColor *))titleColor;
+- (MBProgressHUD *(^) (UIColor *))bezelViewColor;
+- (MBProgressHUD *(^) (NSString *))customIcon;
+
+- (MBProgressHUD *(^) (NHHUDContentStyle))hudContentStyle;
+- (MBProgressHUD *(^) (NHHUDPostion))hudPostion;
+- (MBProgressHUD *(^) (NHHUDProgressStyle))hudProgressStyle;
+
+
+
+ 
 @end

@@ -16,7 +16,6 @@
 		0ACEECE51EEA6C110040ABAB /* NHHUDExtendDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEECE41EEA6C110040ABAB /* NHHUDExtendDemoTests.m */; };
 		0ACEECF01EEA6C110040ABAB /* NHHUDExtendDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEECEF1EEA6C110040ABAB /* NHHUDExtendDemoUITests.m */; };
 		0ACEED011EEA6C630040ABAB /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACEED001EEA6C630040ABAB /* MBProgressHUD.m */; };
-		0AF14FC51EED65810029666C /* MBProgressHUD+BK.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF14FC41EED65810029666C /* MBProgressHUD+BK.m */; };
 		0AF14FC81EED661E0029666C /* MBProgressHUD+NHAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */; };
 		0AF14FC91EED661E0029666C /* MBProgressHUD+NHAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */; };
 		0AF14FCA1EED661E0029666C /* MBProgressHUD+NHAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */; };
@@ -60,8 +59,6 @@
 		0ACEED001EEA6C630040ABAB /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		0ACEED021EEA6C980040ABAB /* NHHUDExtend.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NHHUDExtend.pch; path = ../NHHUDExtend.pch; sourceTree = "<group>"; };
 		0AF14FBD1EED65240029666C /* MBProgressHUD_NHExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD_NHExtend.h; sourceTree = "<group>"; };
-		0AF14FC31EED65810029666C /* MBProgressHUD+BK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD+BK.h"; path = "MBProgressHUD/MBProgressHUD+BK.h"; sourceTree = "<group>"; };
-		0AF14FC41EED65810029666C /* MBProgressHUD+BK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+BK.m"; path = "MBProgressHUD/MBProgressHUD+BK.m"; sourceTree = "<group>"; };
 		0AF14FC61EED661E0029666C /* MBProgressHUD+NHAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+NHAdd.h"; sourceTree = "<group>"; };
 		0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+NHAdd.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACEECFE1EEA6C630040ABAB /* MBProgressHUD */,
-				0AF14FC31EED65810029666C /* MBProgressHUD+BK.h */,
-				0AF14FC41EED65810029666C /* MBProgressHUD+BK.m */,
 				0AF14FBD1EED65240029666C /* MBProgressHUD_NHExtend.h */,
 				0AF14FC61EED661E0029666C /* MBProgressHUD+NHAdd.h */,
 				0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */,
@@ -314,7 +309,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AF14FC51EED65810029666C /* MBProgressHUD+BK.m in Sources */,
 				0ACEECD21EEA6C110040ABAB /* ViewController.m in Sources */,
 				0ACEECCF1EEA6C110040ABAB /* AppDelegate.m in Sources */,
 				0ACEECCC1EEA6C110040ABAB /* main.m in Sources */,

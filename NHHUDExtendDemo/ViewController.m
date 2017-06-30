@@ -20,21 +20,25 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     _listTitle = @[
-                   @"Auto Hidden Only Text - Bottom",
-                   @"Auto Hidden Only Text - Top",
+                   @"Only Text - Bottom",
+                   @"Only Text - Top",
                    @"Only Load View",
                    @"Load And Title",
+                   @"AfterDelay：10 AutoHidden",
                    @"Down Annular Determinate",
+                   @"Down Determinate Model",
+                   @"Down Bar Determinate",
                    @"Down Cancelation Determinate",
-                   @"Determinate Model",
-                   @"Bar Determinate",
+                   @"Custom Down Cancelation",
                    @"Custom Load View",
-                   @"Mode Switching Auto Change",
-                   @"Networking Request/down",
                    @"Determinate NSProgress",
                    @"DimBackground",
                    @"Custom Content View Color",
-                   @"Custom Load And Title Color"
+                   @"Custom Load 、Title 、Background Color",
+                   @"Mode Switching Auto Change",
+                   @"Networking Request/down",
+                   @"Only Text And DetailTitle",
+                   @"Fully Customized HUD",
                    ];
     
 }
@@ -60,15 +64,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-#warning 在实际使用中 MBProgressHUD Block 内需要弱化self的地方，请自行添加，这里只为了演示使用方法，未做处理
+#warning 在实际使用中 MBProgressHUD Block 内有需要弱化self的地方，请自行添加，这里只为了演示使用方法，未做处理
 
     NSInteger row = indexPath.row;
     switch (row) {
         case 0:
-            [MBProgressHUD showToView:self.view postion:NHHUDPostionBottom title:@"我在这里你知道吗？？"];
+            [MBProgressHUD showTitleToView:self.view postion:NHHUDPostionBottom title:_listTitle[row]];
             break;
+            
         case 1:
-            [MBProgressHUD showToView:self.navigationController.view postion:NHHUDPostionTop style:NHHUDStyleDefault title:@"我在这里你知道吗？"];
+            [MBProgressHUD showTitleToView:self.navigationController.view postion:NHHUDPostionTop contentStyle:NHHUDContentBlack title:_listTitle[row]];
             break;
             
         case 2:
@@ -76,51 +81,41 @@
             break;
         
         case 3:
-            [MBProgressHUD showLoadToView:self.view title:@"loading"];
+            [MBProgressHUD showLoadToView:self.view title:_listTitle[row]];
 
             break;
             
         case 4: {
-            [MBProgressHUD showAnnularDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                    [self doSomeWorkWithProgress:hud];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:YES];
-                    });
-                });
-            }];
+            [MBProgressHUD showTitleToView:self.view contentStyle:NHHUDContentBlack title:_listTitle[row] afterDelay:10];
         }
             break;
             
         case 5: {
-            [MBProgressHUD showCancelationDeterminateToView:self.view title:@"loading" cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressAnnularDeterminate title:_listTitle[row] progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [hud hideAnimated:YES];
                     });
                 });
-                
-            } cancelation:^(MBProgressHUD *hud) {
-                [self cancelDown:hud];
             }];
         }
             break;
-
-        case 6: {
-            [MBProgressHUD showDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                    [self doSomeWorkWithProgress:hud];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:YES];
-                    });
-                });
-            }];
-        }
             
+        case 6: {
+            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressDeterminate title:_listTitle[row] progress:^(MBProgressHUD *hud) {
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    [self doSomeWorkWithProgress:hud];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
+                });
+            }];
+        }
             break;
+            
         case 7: {
-            [MBProgressHUD showBarDeterminateToView:self.view title:@"loading" progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressDeterminateHorizontalBar title:_listTitle[row] progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -132,14 +127,42 @@
             break;
             
         case 8: {
+            [MBProgressHUD showCancelationToView:self.view progressStyle:NHHUDProgressDeterminate title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    [self doSomeWorkWithProgress:hud];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
+                });
+            } cancelation:^(MBProgressHUD *hud) {
+                [self cancelDown:hud];
+            }];
+        }
+            break;
+            
+        case 9: {
+            [MBProgressHUD showCancelationToView:self.view progressStyle:NHHUDProgressDeterminateHorizontalBar title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    [self doSomeWorkWithProgress:hud];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
+                });
+            } cancelation:^(MBProgressHUD *hud) {
+                [self cancelDown:hud];
+            }];
+        }
+            break;
+            
+        case 10: {
             [MBProgressHUD showCustomView:[[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                                    toView:self.view
                                     title:@"Done"];
         }
             break;
             
-        case 9: {
-            [MBProgressHUD showModelSwitchingToView:self.view title:@"Preparing..." hudBlock:^(MBProgressHUD *hud) {
+        case 11: {
+            [MBProgressHUD showModelSwitchToView:self.view title:@"Preparing..." hudBlock:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     // Do something useful in the background and update the HUD periodically.
                     [self doSomeWorkWithMixedProgress:hud];
@@ -150,17 +173,41 @@
             }];
         }
             break;
+        
+        case 12: {
+            MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
+                                               backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
+                                                         title:_listTitle[row]];
+            [self autoHiddenHud:hud];
+        }
+            break;
             
-        case 10: {
-            [MBProgressHUD  showNetworkingNSProgressToView:self.view title:@"loading..."];
+        case 13: {
+          MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.view
+                             contentColor:[UIColor redColor]
+                                    title:_listTitle[row]];
+            [self autoHiddenHud:hud];
+        }
+            break;
+            
+        case 14: {
+            [MBProgressHUD showLoadToView:self.view
+                               titleColor:[UIColor lightGrayColor]
+                           bezelViewColor:[UIColor purpleColor]
+                          backgroundColor:[[UIColor yellowColor] colorWithAlphaComponent:0.5]
+                                    title:_listTitle[row]];
+        }
+            break;
+            
+        case 15: {
+            [MBProgressHUD  showNetworkingNSProgressToView:self.view title:_listTitle[row]];
             [self doSomeNetworkWorkWithProgress];
         }
             break;
             
-        case 11: {
-            // Set up NSProgress
+        case 16: {
             NSProgress *progressObject = [NSProgress progressWithTotalUnitCount:100];
-            [MBProgressHUD  showDeterminateWithNSProgress:progressObject toView:self.view title:@"loading..." hudBlock:^(MBProgressHUD *hud) {
+            [MBProgressHUD  showDeterminateWithNSProgress:progressObject toView:self.view title:_listTitle[16] hudBlock:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     // Do something useful in the background and update the HUD periodically.
                     [self doSomeWorkWithProgressObject:hud.progressObject];
@@ -173,28 +220,15 @@
         }
             break;
             
-        case 12: {
-            MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
-                                               backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
-                                                         title:@"loading..."];
-            [self autoHiddenHud:hud];
+            case 17:{
+                [MBProgressHUD showDetailToView:self.view contentStyle:NHHUDContentBlack title:@"title" detail:_listTitle[row]];
         }
             break;
             
-        case 13: {
-          MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.view
-                             contentColor:[UIColor redColor]
-                                    title:@"loading..."];
-            [self autoHiddenHud:hud];
-        }
-            break;
-            
-        case 14: {
-            [MBProgressHUD showLoadToView:self.view
-                             contentColor:[UIColor redColor]
-                          backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
-                                    title:@"loading..."];
-            
+        case 18:{
+            [MBProgressHUD createHudToView:self.view title:_listTitle[row] configHud:^(MBProgressHUD *hud) {
+                hud.title(@"我是title");
+            }];
         }
             break;
         default:
