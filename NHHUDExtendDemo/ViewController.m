@@ -227,7 +227,9 @@
             
         case 18:{
             [MBProgressHUD createHudToView:self.view title:_listTitle[row] configHud:^(MBProgressHUD *hud) {
-                hud.title(@"我是title");
+                hud.title(@"new title").titleColor(UIColor.redColor).bezelBackgroundColor(UIColor.greenColor);
+                hud.hudBackgroundColor([UIColor blueColor]);
+//                hud.titleColor(UIColor.redColor);
             }];
         }
             break;

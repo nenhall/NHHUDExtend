@@ -31,11 +31,21 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 typedef void((^NHCancelation)(MBProgressHUD *hud));
 
 @interface MBProgressHUD ()
-@property (nonatomic, assign) NHHUDContentStyle hudContentStyle;
-@property (nonatomic, assign) NHHUDPostion hudPostion;
-@property (nonatomic, assign) NHHUDProgressStyle hudProgressStyle;
-@property (nonatomic, copy) NHCancelation cancelation;
-@property (nonatomic, strong) UIColor *titleColor;
-@property (nonatomic, strong) UIColor *bezelViewColor;
+@property (nonatomic, copy  ) MBProgressHUD *(^cancelation)(NHCancelation cancelation);
+
+@property (nonatomic, assign, readonly) MBProgressHUD *(^hudContentStyle)(NHHUDContentStyle hudContentStyle);
+@property (nonatomic, assign, readonly) MBProgressHUD *(^hudPostion)(NHHUDPostion hudPostion);
+@property (nonatomic, assign, readonly) MBProgressHUD *(^hudProgressStyle)(NHHUDProgressStyle hudProgressStyle);
+@property (nonatomic, copy  , readonly) MBProgressHUD *(^title)(NSString *title);
+@property (nonatomic, copy  , readonly) MBProgressHUD *(^customIcon)(NSString *customIcon);
+@property (nonatomic, strong, readonly) MBProgressHUD * (^titleColor)(UIColor *titleColor);
+@property (nonatomic, strong, readonly) MBProgressHUD *(^hudBackgroundColor)(UIColor *backgroundColor);
+@property (nonatomic, strong, readonly) MBProgressHUD * (^bezelBackgroundColor)(UIColor *bezelBackgroundColor);
+
+
+
+
+
+
 
 @end

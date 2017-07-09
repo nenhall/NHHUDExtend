@@ -231,10 +231,11 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 + (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *hud))hudBlock;
 
-- (MBProgressHUD *(^) (NSString *))title;
-- (MBProgressHUD *(^) (UIColor *))titleColor;
-- (MBProgressHUD *(^) (UIColor *))bezelViewColor;
-- (MBProgressHUD *(^) (NSString *))customIcon;
+//- (MBProgressHUD *(^) (NSString *))title;
+//- (MBProgressHUD *(^) (UIColor *))titleColor;
+//- (MBProgressHUD *(^) (UIColor *))bezelBackgroundColor;
+//- (MBProgressHUD *(^) (UIColor *))backgroundColor;
+//- (MBProgressHUD *(^) (NSString *))customIcon;
 
 - (MBProgressHUD *(^) (NHHUDContentStyle))hudContentStyle;
 - (MBProgressHUD *(^) (NHHUDPostion))hudPostion;

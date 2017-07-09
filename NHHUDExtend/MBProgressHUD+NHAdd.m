@@ -35,10 +35,10 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     
     //设置默认风格
     if (NHDefaultHudStyle == 1) {
-        hud.hudContentStyle = NHHUDContentBlack;
+        hud.hudContentStyle(NHHUDContentBlack);
         
     } else if (NHDefaultHudStyle == 2) {
-        hud.hudContentStyle = NHHUDContentCustom;
+        hud.hudContentStyle(NHHUDContentCustom);
     }
     
     if (autoHidden) {
@@ -48,64 +48,6 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     
     return hud;
 }
-
-
-- (void)setHudContentStyle:(NHHUDContentStyle)hudStyle {
-    if (hudStyle == NHHUDContentBlack) {
-        self.bezelView.backgroundColor = [UIColor blackColor];
-        self.contentColor = [UIColor whiteColor];
-        
-    } else if (hudStyle == NHHUDContentCustom) {
-        self.bezelView.backgroundColor = NHCustomHudStyleBackgrandColor;
-        self.contentColor = NHCustomHudStyleContentColor;
-        
-    } else {
-        if (NHDefaultHudStyle == 1) {
-            self.bezelView.backgroundColor = [UIColor blackColor];
-            self.contentColor = [UIColor whiteColor];
-            
-        } else {
-            self.bezelView.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.000];
-            self.contentColor = [UIColor colorWithWhite:0.f alpha:0.7f];
-        }
-    }
-}
-
-
-- (void)setHudPostion:(NHHUDPostion)hudPostion {
-    if (hudPostion == NHHUDPostionTop) {
-        self.offset = CGPointMake(0.f, -MBProgressMaxOffset);
-    } else if (hudPostion == NHHUDPostionCenten) {
-        self.offset = CGPointMake(0.f, 0.f);
-    } else {
-        self.offset = CGPointMake(0.f, MBProgressMaxOffset);
-    }
-}
-
-- (void)setCancelation:(NHCancelation)cancelation {
-    objc_setAssociatedObject(self, &cancelationKey, cancelation, OBJC_ASSOCIATION_COPY);
-}
-
-- (NHCancelation)cancelation {
-    return objc_getAssociatedObject(self, &cancelationKey);
-}
-
-- (void)setTitleColor:(UIColor *)titleColor {
-    self.label.textColor = titleColor;
-}
-
-- (void)setBezelViewColor:(UIColor *)bezelViewColor {
-    self.bezelView.backgroundColor = bezelViewColor;
-}
-
-
-//- (void)setActiveBlock:(NHActiveBlock)activeBlock {
-//    objc_setAssociatedObject(self, &activeBlockKey, activeBlock, OBJC_ASSOCIATION_COPY);
-//}
-//
-//- (NHActiveBlock)activeBlock {
-//    return objc_getAssociatedObject(self, &activeBlockKey);
-//}
 
 
 + (MBProgressHUD *)showOnlyLoadToView:(UIView *)view {
@@ -139,14 +81,14 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 + (void)showTitleToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
-    hud.hudPostion = postion;
+    hud.hudPostion(postion);
 }
 
 //纯标题 + 自定背景风格 - 自动消失
 + (void)showTitleToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title{
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
-    hud.hudContentStyle = contentStyle;
+    hud.hudContentStyle(contentStyle);
 }
 
 //纯标题 + 详情 + 自定背景风格 - 自动消失
@@ -154,7 +96,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.detailsLabel.text = detail;
     hud.mode = MBProgressHUDModeText;
-    hud.hudContentStyle = contentStyle;
+    hud.hudContentStyle(contentStyle);
 }
 
 + (void)showTitleToView:(UIView *)view
@@ -164,24 +106,10 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     
     MBProgressHUD *hud = settHUD(view, title, YES);
     hud.mode = MBProgressHUDModeText;
-    hud.hudContentStyle = contentStyle;
-    hud.hudPostion = postion;
+    hud.hudContentStyle(contentStyle);
+    hud.hudPostion(postion);
 }
 
-//+ (void)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud {
-//    MBProgressHUD *hud = settHUD(view, title, YES);
-//    if (configHud) {
-//        configHud(hud);
-//    }
-//}
-
-+ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud {
-    MBProgressHUD *hud = settHUD(view, title, YES);
-    if (configHud) {
-        configHud(hud);
-    }
-    return hud;
-}
 
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title {
     MBProgressHUD *hud = settHUD(view, title, NO);
@@ -193,7 +121,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 + (void)showTitleToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title afterDelay:(NSTimeInterval)delay {
     MBProgressHUD *hud = settHUD(view, title, NO);
     hud.mode = MBProgressHUDModeText;
-    hud.hudContentStyle = contentStyle;
+    hud.hudContentStyle(contentStyle);
     [hud hideAnimated:YES afterDelay:delay];
 }
 
@@ -241,7 +169,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     
     [hud.button setTitle:cancelTitle ?: NSLocalizedString(@"Cancel", @"HUD cancel button title") forState:UIControlStateNormal];
     [hud.button addTarget:hud action:@selector(didClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
-    hud.cancelation = cancelation;
+    hud.cancelation(cancelation);
     if (progress) {
         progress(hud);
     }
@@ -278,7 +206,11 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 - (void)didClickCancelButton {
     if (self.cancelation) {
-        self.cancelation(self);
+        self.cancelation = ^(NHCancelation cancelation) {
+//                    objc_setAssociatedObject(self, &cancelationKey, cancelation, OBJC_ASSOCIATION_COPY);
+//            objc_getAssociatedObject(self, &cancelationKey);
+                    return self;
+                };
     }
 }
 
@@ -344,6 +276,13 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     return hud;
 }
 
++ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud {
+    MBProgressHUD *hud = settHUD(view, title, YES);
+    if (configHud) {
+        configHud(hud);
+    }
+    return hud;
+}
 
 + (void)hideHUDForView:(UIView *)view {
     if (view == nil) view = (UIView*)[UIApplication sharedApplication].delegate.window;
@@ -356,19 +295,27 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 }
 
 
+#pragma mark -- sett // gett
 + (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *))hudBlock {
     MBProgressHUD *hud = [[MBProgressHUD alloc] init];
     hudBlock(hud);
     return hud;
 }
 
-- (MBProgressHUD *(^)(UIView *))toView {
-
-    return ^(UIView *view){
-        
+- (MBProgressHUD *(^)(UIColor *))hudBackgroundColor {
+    return ^(UIColor *hudBackgroundColor) {
+        self.backgroundView.color = hudBackgroundColor;
         return self;
     };
 }
+
+
+- (MBProgressHUD *(^)(UIView *))toView {
+    return ^(UIView *view){
+        return self;
+    };
+}
+
 
 - (MBProgressHUD *(^)(NSString *))title {
     return ^(NSString *title){
@@ -391,7 +338,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     };
 }
 
-- (MBProgressHUD *(^)(UIColor *))bezelViewColor {
+- (MBProgressHUD *(^)(UIColor *))bezelBackgroundColor {
     return ^(UIColor *bezelViewColor){
         self.bezelView.backgroundColor = bezelViewColor;
         return self;
@@ -401,23 +348,99 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 - (MBProgressHUD *(^)(NHHUDContentStyle))hudContentStyle {
     return ^(NHHUDContentStyle hudContentStyle){
-        self.hudContentStyle = hudContentStyle;
+        if (hudContentStyle == NHHUDContentBlack) {
+            self.bezelView.backgroundColor = [UIColor blackColor];
+            self.contentColor = [UIColor whiteColor];
+            
+        } else if (hudContentStyle == NHHUDContentCustom) {
+            self.bezelView.backgroundColor = NHCustomHudStyleBackgrandColor;
+            self.contentColor = NHCustomHudStyleContentColor;
+            
+        } else {
+            if (NHDefaultHudStyle == 1) {
+                self.bezelView.backgroundColor = [UIColor blackColor];
+                self.contentColor = [UIColor whiteColor];
+                
+            } else {
+                self.bezelView.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.000];
+                self.contentColor = [UIColor colorWithWhite:0.f alpha:0.7f];
+            }
+        }
         return self;
     };
 }
 
+
 - (MBProgressHUD *(^)(NHHUDPostion))hudPostion {
     return ^(NHHUDPostion hudPostion){
-        self.hudPostion = hudPostion;
+        if (hudPostion == NHHUDPostionTop) {
+            self.offset = CGPointMake(0.f, -MBProgressMaxOffset);
+        } else if (hudPostion == NHHUDPostionCenten) {
+            self.offset = CGPointMake(0.f, 0.f);
+        } else {
+            self.offset = CGPointMake(0.f, MBProgressMaxOffset);
+        }
         return self;
     };
 }
 
 - (MBProgressHUD *(^)(NHHUDProgressStyle))hudProgressStyle {
     return ^(NHHUDProgressStyle hudProgressStyle){
-        self.hudProgressStyle = hudProgressStyle;
+        if (hudProgressStyle == NHHUDProgressDeterminate) {
+            self.mode = MBProgressHUDModeDeterminate;
+            
+        } else if (hudProgressStyle == NHHUDProgressAnnularDeterminate) {
+            self.mode = MBProgressHUDModeAnnularDeterminate;
+
+        } else if (hudProgressStyle == NHHUDProgressCancelationDeterminate) {
+            self.mode = MBProgressHUDModeDeterminate;
+
+        } else if (hudProgressStyle == NHHUDProgressDeterminateHorizontalBar) {
+            self.mode = MBProgressHUDModeDeterminateHorizontalBar;
+
+        }
         return self;
     };
 }
+
+- (MBProgressHUD *(^)(NHCancelation))cancelation {
+    return ^(NHCancelation cancelation) {
+        objc_setAssociatedObject(self, &cancelationKey, cancelation, OBJC_ASSOCIATION_COPY);
+//        objc_getAssociatedObject(self, &cancelationKey);
+        return self;
+    };
+}
+//
+//- (void)setCancelation:(MBProgressHUD *(^)(NHCancelation))cancelation {
+//    cancelation = ^(NHCancelation cancelation) {
+//        objc_setAssociatedObject(self, &cancelationKey, cancelation, OBJC_ASSOCIATION_COPY);
+//        return self;
+//    };
+//}
+
+//- (void)setCancelation:(NHCancelation)cancelation {
+//    
+//}
+
+//- (NHCancelation)cancelation {
+//    return objc_getAssociatedObject(self, &cancelationKey);
+//}
+
+//- (void)setTitleColor:(UIColor *)titleColor {
+//    self.label.textColor = titleColor;
+//}
+//
+//- (void)setBezelViewColor:(UIColor *)bezelViewColor {
+//    self.bezelView.backgroundColor = bezelViewColor;
+//}
+
+
+//- (void)setActiveBlock:(NHActiveBlock)activeBlock {
+//    objc_setAssociatedObject(self, &activeBlockKey, activeBlock, OBJC_ASSOCIATION_COPY);
+//}
+//
+//- (NHActiveBlock)activeBlock {
+//    return objc_getAssociatedObject(self, &activeBlockKey);
+//}
 
 @end

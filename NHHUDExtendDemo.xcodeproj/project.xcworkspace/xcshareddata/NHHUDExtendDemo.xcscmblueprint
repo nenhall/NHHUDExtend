@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E7A39DA787D390A3487A6853DD31796F85C4E33E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E7A39DA787D390A3487A6853DD31796F85C4E33E" : 9223372036854775807,
+    "4920356B7C5B57685656B7F8A1B881A8D9EDA54A" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BC98FB61-1D51-4B97-B66D-EB52A6A051DB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E7A39DA787D390A3487A6853DD31796F85C4E33E" : "NHHUDExtend\/",
+    "4920356B7C5B57685656B7F8A1B881A8D9EDA54A" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "NHHUDExtendDemo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "NHHUDExtendDemo.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/neghao-studio\/MiBoLive.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4920356B7C5B57685656B7F8A1B881A8D9EDA54A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/neghao\/NHHUDExtend.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E7A39DA787D390A3487A6853DD31796F85C4E33E"
+    }
+  ]
+}
