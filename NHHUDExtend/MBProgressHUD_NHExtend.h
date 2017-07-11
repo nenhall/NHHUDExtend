@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 };
 
 typedef void((^NHCancelation)(MBProgressHUD *hud));
+typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 
 @interface MBProgressHUD ()
@@ -44,15 +45,15 @@ typedef void((^NHCancelation)(MBProgressHUD *hud));
 ///自定义图片名
 @property (nonatomic, copy  , readonly) MBProgressHUD *(^customIcon)(NSString *customIcon);
 ///标题颜色
-@property (nonatomic, strong, readonly) MBProgressHUD * (^titleColor)(UIColor *titleColor);
+@property (nonatomic, strong, readonly) MBProgressHUD *(^titleColor)(UIColor *titleColor);
 ///进度条颜色
-@property (nonatomic, strong, readonly) MBProgressHUD * (^progressColor)(UIColor *progressColor);
+@property (nonatomic, strong, readonly) MBProgressHUD *(^progressColor)(UIColor *progressColor);
 ///进度条、标题颜色
-@property (nonatomic, strong, readonly) MBProgressHUD * (^allContentColors)(UIColor *allContentColors);
+@property (nonatomic, strong, readonly) MBProgressHUD *(^allContentColors)(UIColor *allContentColors);
 ///背景色
 @property (nonatomic, strong, readonly) MBProgressHUD *(^hudBackgroundColor)(UIColor *backgroundColor);
 ///内容背景色
-@property (nonatomic, strong, readonly) MBProgressHUD * (^bezelBackgroundColor)(UIColor *bezelBackgroundColor);
+@property (nonatomic, strong, readonly) MBProgressHUD *(^bezelBackgroundColor)(UIColor *bezelBackgroundColor);
 
 
 @end

@@ -29,10 +29,8 @@ UIKIT_EXTERN CGFloat const delayTime;
 #define NHCustomHudStyleBackgrandColor  [UIColor colorWithWhite:0.f alpha:0.7f]
 #define NHCustomHudStyleContentColor    [UIColor colorWithWhite:1.f alpha:0.7f]
 
-typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 @interface MBProgressHUD (NHAdd)
-
 
 //*************************************************************************************//
 //      所有类方法中有返回本类的，则不会自动消失，返回值为void的都会自动消失(默认值:delayTime)      //
