@@ -73,7 +73,7 @@
             break;
             
         case 1:
-            [MBProgressHUD showTitleToView:self.navigationController.view postion:NHHUDPostionTop contentStyle:NHHUDContentBlack title:_listTitle[row]];
+            [MBProgressHUD showTitleToView:self.navigationController.view postion:NHHUDPostionTop contentStyle:NHHUDContentBlackStyle title:_listTitle[row]];
             break;
             
         case 2:
@@ -86,7 +86,7 @@
             break;
             
         case 4: {
-            [MBProgressHUD showTitleToView:self.view contentStyle:NHHUDContentBlack title:_listTitle[row] afterDelay:10];
+            [MBProgressHUD showTitleToView:self.view contentStyle:NHHUDContentDefaultStyle title:_listTitle[row] afterDelay:10];
         }
             break;
             
@@ -116,6 +116,8 @@
             
         case 7: {
             [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressDeterminateHorizontalBar title:_listTitle[row] progress:^(MBProgressHUD *hud) {
+                hud.allContentColors([UIColor yellowColor]);
+                hud.progressColor([UIColor whiteColor]);
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -221,15 +223,17 @@
             break;
             
             case 17:{
-                [MBProgressHUD showDetailToView:self.view contentStyle:NHHUDContentBlack title:@"title" detail:_listTitle[row]];
+                [MBProgressHUD showDetailToView:self.view contentStyle:NHHUDContentBlackStyle title:@"title" detail:_listTitle[row]];
         }
             break;
             
         case 18:{
-            [MBProgressHUD createHudToView:self.view title:_listTitle[row] configHud:^(MBProgressHUD *hud) {
-                hud.title(@"new title").titleColor(UIColor.redColor).bezelBackgroundColor(UIColor.greenColor);
-                hud.hudBackgroundColor([UIColor blueColor]);
-//                hud.titleColor(UIColor.redColor);
+            [MBProgressHUD createHudToView:self.navigationController.view title:_listTitle[row] configHud:^(MBProgressHUD *hud) {
+                hud.title(@"new title");
+                hud.contentColor = [UIColor yellowColor];
+                hud.titleColor(UIColor.redColor);
+                hud.bezelBackgroundColor(UIColor.greenColor);
+                hud.hudBackgroundColor([[UIColor blueColor] colorWithAlphaComponent:0.2]);
             }];
         }
             break;

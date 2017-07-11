@@ -10,23 +10,18 @@
 
 @class MBProgressHUD;
 
-
 //默认持续显示时间(x秒后消失)
 UIKIT_EXTERN CGFloat const delayTime;
 
-/** 设置默认的显示风格：
- * 0: 为MBProgressHUD默认的白底黑字风格（默认）
- * 1: 为黑底白字
- * 2: 自定义风格<设置 NHCustomHudStyleBackgrandColor 及 NHCustomHudStyleContentColor>
- * 修改这个值可以减少频繁的调用setHudStyle，
+/** 设置默认的显示风格(修改这个值可以减少频繁的调用setHudStyle)：
+ *  NHHUDContentDefaultStyle = 0,//默认是白底黑字 Default
+ *  NHHUDContentBlackStyle = 1,//黑底白字
+ *  NHHUDContentCustomStyle = 2,
+ *
  * eg：设置为1时，调用任何这个扩展内的方法，显示出hud的UI效果都会为黑底白字风格
- * 这里为了展示使用的是release为黑色
  */
-#ifdef DEBUG
-#define NHDefaultHudStyle 0
-#else
-#define NHDefaultHudStyle 1
-#endif
+#define NHDefaultHudStyle  1
+
 
 /**
  * 风格为自定义时，在这里设置颜色
@@ -51,12 +46,10 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
  */
 + (MBProgressHUD *)showOnlyLoadToView:(UIView *)view;
 
-
 /**
  纯文字
  */
 + (void)showOnlyTextToView:(UIView *)view title:(NSString *)title;
-
 
 /**
  *  成功提示 - 自动消失，带默认成功图
@@ -65,7 +58,6 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
  */
 + (void)showSuccess:(NSString *)success toView:(UIView *)view;
 
-
 /**
  *  错误提示 - 自动消失, 带默认错误图
  *
@@ -73,18 +65,15 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
  */
 + (void)showError:(NSString *)error toView:(UIView *)view;
 
-
 /**
  纯文字+自定位置(上、中、下) - 自动消失
  @param postion 位置：上、中、下
  */
 + (void)showTitleToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title;
 
-+ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud;
-
 /**
  纯文字+自定背景风格 - 自动消失
-
+ 
  @param contentStyle 背景风格：白、黑
  */
 + (void)showTitleToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title;
@@ -100,18 +89,18 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  纯文字+自定位置、风格 - 自动消失
-
+ 
  @param postion 位置
  @param contentStyle 风格
  */
 + (void)showTitleToView:(UIView *)view
                 postion:(NHHUDPostion)postion
-                  contentStyle:(NHHUDContentStyle)contentStyle
+           contentStyle:(NHHUDContentStyle)contentStyle
                   title:(NSString *)title;
 
 
 /**
- 文字+默认图
+ 文字+加载图
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
@@ -130,7 +119,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  文字 + 进度条
-
+ 
  @param progressStyle 进度条风格
  @param progress 当前进度值
  */
@@ -165,7 +154,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  文字 + 默认加载图 + 自定朦胧层背景色
-
+ 
  @param backgroundColor 自定背景色
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor title:(NSString *)title;
@@ -173,7 +162,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  文字 + 默认加载图 + 自定文字、加载图颜色
-
+ 
  @param contentColor 自定文字、加载图颜色
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
@@ -181,7 +170,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  文字 + 默认加载图 + 自定文图内容颜色 + 自定朦胧层背景色
-
+ 
  @param contentColor 自定文字、加载图颜色
  @param backgroundColor + 自定朦胧层背景色
  */
@@ -218,7 +207,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 
 /**
  隐藏ProgressView
-
+ 
  */
 + (void)hideHUDForView:(UIView *)view;
 
@@ -229,19 +218,13 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 + (void)hideHUD;
 
 
+/**
+ 创建一个新的hud
+ 链式语法
+ */
++ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud;
 + (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *hud))hudBlock;
 
-//- (MBProgressHUD *(^) (NSString *))title;
-//- (MBProgressHUD *(^) (UIColor *))titleColor;
-//- (MBProgressHUD *(^) (UIColor *))bezelBackgroundColor;
-//- (MBProgressHUD *(^) (UIColor *))backgroundColor;
-//- (MBProgressHUD *(^) (NSString *))customIcon;
-
-- (MBProgressHUD *(^) (NHHUDContentStyle))hudContentStyle;
-- (MBProgressHUD *(^) (NHHUDPostion))hudPostion;
-- (MBProgressHUD *(^) (NHHUDProgressStyle))hudProgressStyle;
-
-
-
- 
 @end
+
+

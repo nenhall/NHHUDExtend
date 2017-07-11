@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A83C0031F14602A00D69816 /* MBProgressHUD_NHExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD_NHExtend.h; path = NHHUDExtend/MBProgressHUD_NHExtend.h; sourceTree = SOURCE_ROOT; };
 		0ACEECC71EEA6C110040ABAB /* NHHUDExtendDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NHHUDExtendDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACEECCB1EEA6C110040ABAB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ACEECCD1EEA6C110040ABAB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		0ACEECFF1EEA6C630040ABAB /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0ACEED001EEA6C630040ABAB /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		0ACEED021EEA6C980040ABAB /* NHHUDExtend.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NHHUDExtend.pch; path = ../NHHUDExtend.pch; sourceTree = "<group>"; };
-		0AF14FBD1EED65240029666C /* MBProgressHUD_NHExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD_NHExtend.h; sourceTree = "<group>"; };
 		0AF14FC61EED661E0029666C /* MBProgressHUD+NHAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+NHAdd.h"; sourceTree = "<group>"; };
 		0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+NHAdd.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,7 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACEECFE1EEA6C630040ABAB /* MBProgressHUD */,
-				0AF14FBD1EED65240029666C /* MBProgressHUD_NHExtend.h */,
+				0A83C0031F14602A00D69816 /* MBProgressHUD_NHExtend.h */,
 				0AF14FC61EED661E0029666C /* MBProgressHUD+NHAdd.h */,
 				0AF14FC71EED661E0029666C /* MBProgressHUD+NHAdd.m */,
 			);

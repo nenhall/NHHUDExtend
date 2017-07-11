@@ -9,9 +9,9 @@
 #import "MBProgressHUD.h"
 
 typedef NS_ENUM(NSInteger, NHHUDContentStyle) {
-    NHHUDContentWhiteBackground,//默认是白底黑字 Default
-    NHHUDContentBlack,//黑底白字
-    NHHUDContentCustom,//:自定义风格<由自己设置自定义风格的颜色>
+    NHHUDContentDefaultStyle = 0,//默认是白底黑字 Default
+    NHHUDContentBlackStyle = 1,//黑底白字
+    NHHUDContentCustomStyle = 2,//:自定义风格<由自己设置自定义风格的颜色>
 };
 
 typedef NS_ENUM(NSInteger, NHHUDPostion) {
@@ -27,25 +27,32 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
     NHHUDProgressCancelationDeterminate,///带取消按钮 - 双圆环 - 完全重合
 };
 
-
 typedef void((^NHCancelation)(MBProgressHUD *hud));
 
+
 @interface MBProgressHUD ()
-@property (nonatomic, copy  ) MBProgressHUD *(^cancelation)(NHCancelation cancelation);
 
+@property (nonatomic, copy  ) NHCancelation cancelation;
+///内容风格
 @property (nonatomic, assign, readonly) MBProgressHUD *(^hudContentStyle)(NHHUDContentStyle hudContentStyle);
+///显示位置：有导航栏时在导航栏下在，无导航栏在状态栏下面
 @property (nonatomic, assign, readonly) MBProgressHUD *(^hudPostion)(NHHUDPostion hudPostion);
+///进度条风格
 @property (nonatomic, assign, readonly) MBProgressHUD *(^hudProgressStyle)(NHHUDProgressStyle hudProgressStyle);
+///标题
 @property (nonatomic, copy  , readonly) MBProgressHUD *(^title)(NSString *title);
+///自定义图片名
 @property (nonatomic, copy  , readonly) MBProgressHUD *(^customIcon)(NSString *customIcon);
+///标题颜色
 @property (nonatomic, strong, readonly) MBProgressHUD * (^titleColor)(UIColor *titleColor);
+///进度条颜色
+@property (nonatomic, strong, readonly) MBProgressHUD * (^progressColor)(UIColor *progressColor);
+///进度条、标题颜色
+@property (nonatomic, strong, readonly) MBProgressHUD * (^allContentColors)(UIColor *allContentColors);
+///背景色
 @property (nonatomic, strong, readonly) MBProgressHUD *(^hudBackgroundColor)(UIColor *backgroundColor);
+///内容背景色
 @property (nonatomic, strong, readonly) MBProgressHUD * (^bezelBackgroundColor)(UIColor *bezelBackgroundColor);
-
-
-
-
-
 
 
 @end
