@@ -42,6 +42,8 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 @property (nonatomic, assign, readonly) MBProgressHUD *(^hudProgressStyle)(NHHUDProgressStyle hudProgressStyle);
 ///标题
 @property (nonatomic, copy  , readonly) MBProgressHUD *(^title)(NSString *title);
+///详情
+@property (nonatomic, copy  , readonly) MBProgressHUD *(^details)(NSString *details);
 ///自定义图片名
 @property (nonatomic, copy  , readonly) MBProgressHUD *(^customIcon)(NSString *customIcon);
 ///标题颜色

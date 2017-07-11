@@ -21,11 +21,11 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     _listTitle = @[
                    @"Only Text - Bottom",
-                   @"Only Text - Top",
+                   @"Only Text - Top DefaultStyle",
                    @"Only Load View",
                    @"Load And Title",
                    @"AfterDelay：10 AutoHidden",
-                   @"Down Annular Determinate",
+                   @"Only Text Detail",
                    @"Down Determinate Model",
                    @"Down Bar Determinate",
                    @"Down Cancelation Determinate",
@@ -73,16 +73,18 @@
             break;
             
         case 1:
-            [MBProgressHUD showTitleToView:self.navigationController.view postion:NHHUDPostionTop contentStyle:NHHUDContentBlackStyle title:_listTitle[row]];
+            [MBProgressHUD showTitleToView:self.navigationController.view
+                                   postion:NHHUDPostionTop
+                              contentStyle:NHHUDContentDefaultStyle
+                                     title:_listTitle[row]];
             break;
             
         case 2:
-            [MBProgressHUD showLoadToView:self.view title:nil];
+            [MBProgressHUD showOnlyLoadToView:self.view];
             break;
         
         case 3:
             [MBProgressHUD showLoadToView:self.view title:_listTitle[row]];
-
             break;
             
         case 4: {
@@ -91,14 +93,7 @@
             break;
             
         case 5: {
-            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressAnnularDeterminate title:_listTitle[row] progress:^(MBProgressHUD *hud) {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                    [self doSomeWorkWithProgress:hud];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:YES];
-                    });
-                });
-            }];
+            [MBProgressHUD showOnlyTextToView:self.view title:@"the is title" detail:@"the is detail,the is detail,the is detail"];
         }
             break;
             
@@ -129,7 +124,7 @@
             break;
             
         case 8: {
-            [MBProgressHUD showCancelationToView:self.view progressStyle:NHHUDProgressDeterminate title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressDeterminate title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -143,7 +138,7 @@
             break;
             
         case 9: {
-            [MBProgressHUD showCancelationToView:self.view progressStyle:NHHUDProgressDeterminateHorizontalBar title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
+            [MBProgressHUD showDownToView:self.view progressStyle:NHHUDProgressDeterminateHorizontalBar title:_listTitle[row] cancelTitle:@"cancel" progress:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     [self doSomeWorkWithProgress:hud];
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -164,7 +159,7 @@
             break;
             
         case 11: {
-            [MBProgressHUD showModelSwitchToView:self.view title:@"Preparing..." hudBlock:^(MBProgressHUD *hud) {
+            [MBProgressHUD showModelSwitchToView:self.view title:@"Preparing..." configHud:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     // Do something useful in the background and update the HUD periodically.
                     [self doSomeWorkWithMixedProgress:hud];
@@ -175,7 +170,7 @@
             }];
         }
             break;
-        
+            
         case 12: {
             MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.navigationController.view
                                                backgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.5]
@@ -185,9 +180,9 @@
             break;
             
         case 13: {
-          MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.view
-                             contentColor:[UIColor redColor]
-                                    title:_listTitle[row]];
+            MBProgressHUD *hud = [MBProgressHUD showLoadToView:self.view
+                                                  contentColor:[UIColor redColor]
+                                                         title:_listTitle[row]];
             [self autoHiddenHud:hud];
         }
             break;
@@ -202,16 +197,16 @@
             break;
             
         case 15: {
-            [MBProgressHUD  showNetworkingNSProgressToView:self.view title:_listTitle[row]];
-            [self doSomeNetworkWorkWithProgress];
+            [MBProgressHUD showModelSwitchToView:self.view title:@"Preparing..." configHud:^(MBProgressHUD *hud) {
+                [self doSomeNetworkWorkWithProgress];
+            }];
         }
             break;
             
         case 16: {
             NSProgress *progressObject = [NSProgress progressWithTotalUnitCount:100];
-            [MBProgressHUD  showDeterminateWithNSProgress:progressObject toView:self.view title:_listTitle[16] hudBlock:^(MBProgressHUD *hud) {
+            [MBProgressHUD  showDownWithNSProgress:progressObject toView:self.view title:_listTitle[16] configHud:^(MBProgressHUD *hud) {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                    // Do something useful in the background and update the HUD periodically.
                     [self doSomeWorkWithProgressObject:hud.progressObject];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [hud hideAnimated:YES];
@@ -223,7 +218,7 @@
             break;
             
             case 17:{
-                [MBProgressHUD showDetailToView:self.view contentStyle:NHHUDContentBlackStyle title:@"title" detail:_listTitle[row]];
+                [MBProgressHUD showDetailToView:self.view postion:NHHUDPostionBottom title:@"title" detail:_listTitle[row]];
         }
             break;
             
@@ -249,18 +244,8 @@
 
 
 - (IBAction)leftItemAction:(UIBarButtonItem *)sender {
-    
-#ifdef DEBUG 
-    NSString *meg = @"切换到release模式后重新运行就即可,或者手动修改宏：\nNHDefaultHudStyle = 1";
-#else
-    NSString *meg = @"切换到Debu模式后重新运行就即可，或者手动修改宏：\nNHDefaultHudStyle = 0";
-#endif
-    
-    [[[UIAlertView alloc] initWithTitle:@"提示"
-                                message:meg
-                               delegate:self
-                      cancelButtonTitle:@"确定"
-                      otherButtonTitles:nil, nil] show];
+    NSString *meg = @"改变 MBProgressHUD+NHAdd.h\n  中的 NHDefaultHudStyle的值";
+    [MBProgressHUD showDetailToView:self.view postion:NHHUDPostionCenten title:@"风格切换" detail:meg];
 }
 
 
@@ -301,14 +286,6 @@
     }
 }
 
-- (void)doSomeNetworkWorkWithProgress {
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-    NSURL *URL = [NSURL URLWithString:@"https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/HT1425/sample_iPod.m4v.zip"];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:URL];
-    [task resume];
-}
-
 - (void)doSomeWorkWithMixedProgress:(MBProgressHUD *)hud {
     // Indeterminate mode
     sleep(2);
@@ -341,7 +318,13 @@
     sleep(2);
 }
 
-
+- (void)doSomeNetworkWorkWithProgress {
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    NSURL *URL = [NSURL URLWithString:@"https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/HT1425/sample_iPod.m4v.zip"];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithURL:URL];
+    [task resume];
+}
 
 #pragma mark - NSURLSessionDelegate
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {

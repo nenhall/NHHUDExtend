@@ -50,6 +50,11 @@ UIKIT_EXTERN CGFloat const delayTime;
 + (void)showOnlyTextToView:(UIView *)view title:(NSString *)title;
 
 /**
+ 纯文字标题 + 详情
+ */
++ (void)showOnlyTextToView:(UIView *)view title:(NSString *)title detail:(NSString *)detail;
+
+/**
  *  成功提示 - 自动消失，带默认成功图
  *
  *  @param success 要显示的文字
@@ -64,29 +69,27 @@ UIKIT_EXTERN CGFloat const delayTime;
 + (void)showError:(NSString *)error toView:(UIView *)view;
 
 /**
- 纯文字+自定位置(上、中、下) - 自动消失
+ 纯文字标题 + 自定位置 - 自动消失
+ 
  @param postion 位置：上、中、下
  */
-+ (void)showTitleToView:(UIView *)view postion:(NHHUDPostion)postion title:(NSString *)title;
++ (void)showTitleToView:(UIView *)view
+                postion:(NHHUDPostion)postion
+                  title:(NSString *)title;
 
 /**
- 纯文字+自定背景风格 - 自动消失
+ 纯文字标题 + 详情 + 自定位置 - 自动消失
  
- @param contentStyle 背景风格：白、黑
+ @param postion 配置hud其它属性
  */
-+ (void)showTitleToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title;
++ (void)showDetailToView:(UIView *)view
+                 postion:(NHHUDPostion)postion
+                   title:(NSString *)title
+                  detail:(NSString *)detail;
 
 
 /**
- 纯标题 + 详情 + 自定背景风格 - 自动消失
- 
- @param contentStyle 背景风格：白、黑
- */
-+ (void)showDetailToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title detail:(NSString *)detail;
-
-
-/**
- 纯文字+自定位置、风格 - 自动消失
+ 纯文字 + 自定位置、风格 - 自动消失
  
  @param postion 位置
  @param contentStyle 风格
@@ -98,14 +101,14 @@ UIKIT_EXTERN CGFloat const delayTime;
 
 
 /**
- 文字+加载图
+ 文字 + 加载图
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
 
 
 /**
- 纯文字+自定位置 x秒后自动消失
+ 纯文字 + 自定位置 x秒后自动消失
  
  @param delay 延迟消失时间
  */
@@ -135,19 +138,21 @@ UIKIT_EXTERN CGFloat const delayTime;
  @param cancelTitle 取消按钮名称
  @param cancelation 取消按钮的点击事件
  */
-+ (MBProgressHUD *)showCancelationToView:(UIView *)view
-                           progressStyle:(NHHUDProgressStyle)progressStyle
-                                   title:(NSString *)title
-                             cancelTitle:(NSString *)cancelTitle
-                                progress:(NHCurrentHud)progress
-                             cancelation:(NHCancelation)cancelation;
++ (MBProgressHUD *)showDownToView:(UIView *)view
+                    progressStyle:(NHHUDProgressStyle)progressStyle
+                            title:(NSString *)title
+                      cancelTitle:(NSString *)cancelTitle
+                         progress:(NHCurrentHud)progress
+                      cancelation:(NHCancelation)cancelation;
 
 
 /**
  文字 + 自定图片
  @param image 图片
  */
-+ (void)showCustomView:(UIImage *)image toView:(UIView *)toView title:(NSString *)title;
++ (void)showCustomView:(UIImage *)image
+                toView:(UIView *)toView
+                 title:(NSString *)title;
 
 
 /**
@@ -155,7 +160,9 @@ UIKIT_EXTERN CGFloat const delayTime;
  
  @param backgroundColor 自定背景色
  */
-+ (MBProgressHUD *)showLoadToView:(UIView *)view backgroundColor:(UIColor *)backgroundColor title:(NSString *)title;
++ (MBProgressHUD *)showLoadToView:(UIView *)view
+                  backgroundColor:(UIColor *)backgroundColor
+                            title:(NSString *)title;
 
 
 /**
@@ -163,7 +170,9 @@ UIKIT_EXTERN CGFloat const delayTime;
  
  @param contentColor 自定文字、加载图颜色
  */
-+ (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
++ (MBProgressHUD *)showLoadToView:(UIView *)view
+                     contentColor:(UIColor *)contentColor
+                            title:(NSString *)title;
 
 
 /**
@@ -192,15 +201,23 @@ UIKIT_EXTERN CGFloat const delayTime;
 
 /**
  状态变换
+ 
+ @param configHud 配置hud其它属性
  */
-+ (void)showModelSwitchToView:(UIView *)toView title:(NSString *)title hudBlock:(NHCurrentHud)hudBlock;
++ (MBProgressHUD *)showModelSwitchToView:(UIView *)toView
+                                   title:(NSString *)title
+                               configHud:(NHCurrentHud)configHud;
 
 
 /**
  文字 + 进度 网络请求
+ 
+ @param configHud 配置hud其它属性
  */
-+ (MBProgressHUD *)showNetworkingNSProgressToView:(UIView *)view title:(NSString *)title;
-+ (MBProgressHUD *)showDeterminateWithNSProgress:(NSProgress *)Progress toView:(UIView *)view title:(NSString *)title hudBlock:(NHCurrentHud)hudBlock;
++ (MBProgressHUD *)showDownWithNSProgress:(NSProgress *)Progress
+                                   toView:(UIView *)view
+                                    title:(NSString *)title
+                                configHud:(NHCurrentHud)configHud;
 
 
 /**
@@ -218,10 +235,12 @@ UIKIT_EXTERN CGFloat const delayTime;
 
 /**
  创建一个新的hud
- 链式语法
+ 
+ @param configHud 配置hud其它属性
  */
-+ (MBProgressHUD *)createHudToView:(UIView *)view title:(NSString *)title configHud:(NHCurrentHud)configHud;
-+ (MBProgressHUD *)createNewHud:(void (^)(MBProgressHUD *hud))hudBlock;
++ (MBProgressHUD *)createHudToView:(UIView *)view
+                             title:(NSString *)title
+                         configHud:(NHCurrentHud)configHud;
 
 @end
 
