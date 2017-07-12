@@ -67,7 +67,7 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
     NHHUDProgressCancelationDeterminate,///带取消按钮 - 双圆环 - 完全重合
 };
 ```
-
+![](https://github.com/neghao/NHHUDExtend/blob/master/NHHUDExtend.gif)
 ##### 示例方法
 ```
 /**
