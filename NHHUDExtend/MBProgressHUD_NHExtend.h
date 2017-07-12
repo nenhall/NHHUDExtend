@@ -52,7 +52,7 @@ typedef void((^NHCurrentHud)(MBProgressHUD *hud));
 @property (nonatomic, strong, readonly) MBProgressHUD *(^progressColor)(UIColor *progressColor);
 ///进度条、标题颜色
 @property (nonatomic, strong, readonly) MBProgressHUD *(^allContentColors)(UIColor *allContentColors);
-///背景色
+///蒙层背景色
 @property (nonatomic, strong, readonly) MBProgressHUD *(^hudBackgroundColor)(UIColor *backgroundColor);
 ///内容背景色
 @property (nonatomic, strong, readonly) MBProgressHUD *(^bezelBackgroundColor)(UIColor *bezelBackgroundColor);
