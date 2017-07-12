@@ -37,7 +37,7 @@
                    @"Custom Load 、Title 、Background Color",
                    @"Mode Switching Auto Change",
                    @"Networking Request/down",
-                   @"Only Text And DetailTitle",
+                   @"Only Text And DetailTitle - Bottom",
                    @"Fully Customized HUD",
                    ];
     
