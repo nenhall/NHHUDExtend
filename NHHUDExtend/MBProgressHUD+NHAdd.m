@@ -113,6 +113,12 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     return hud;
 }
 
++ (MBProgressHUD *)showLoadToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.hudContentStyle(contentStyle);
+    return hud;
+}
+
 
 + (void)showTitleToView:(UIView *)view
            contentStyle:(NHHUDContentStyle)contentStyle

@@ -105,6 +105,10 @@ UIKIT_EXTERN CGFloat const delayTime;
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
+/**
+ 文字 + 加载图 + 自定风格
+ */
++ (MBProgressHUD *)showLoadToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title;
 
 
 /**
