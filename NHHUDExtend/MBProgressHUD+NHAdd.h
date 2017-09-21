@@ -8,7 +8,6 @@
 
 #import "MBProgressHUD_NHExtend.h"
 
-@class MBProgressHUD;
 
 //默认持续显示时间(x秒后消失)
 UIKIT_EXTERN CGFloat const delayTime;
@@ -105,10 +104,6 @@ UIKIT_EXTERN CGFloat const delayTime;
  */
 + (MBProgressHUD *)showLoadToView:(UIView *)view title:(NSString *)title;
 
-/**
- 文字 + 加载图 + 自定风格
- */
-+ (MBProgressHUD *)showLoadToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title;
 
 
 /**
@@ -120,6 +115,13 @@ UIKIT_EXTERN CGFloat const delayTime;
            contentStyle:(NHHUDContentStyle)contentStyle
                   title:(NSString *)title
              afterDelay:(NSTimeInterval)delay;
+
+/**
+ 纯文字 + 自定位置 不自动消失
+ */
++ (MBProgressHUD *)showTitleToView:(UIView *)view
+                      contentStyle:(NHHUDContentStyle)contentStyle
+                             title:(NSString *)title;
 
 
 /**
@@ -246,6 +248,6 @@ UIKIT_EXTERN CGFloat const delayTime;
                              title:(NSString *)title
                          configHud:(NHCurrentHud)configHud;
 
+
+
 @end
-
-

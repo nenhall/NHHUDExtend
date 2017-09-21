@@ -8,8 +8,8 @@
 
 #import "MBProgressHUD+NHAdd.h"
 #import "MBProgressHUD_NHExtend.h"
-#import "MBProgressHUD.h"
 #import <objc/message.h>
+
 
 CGFloat const delayTime = 1.2;
 #define kLoadImage(name) [UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", (name)]]
@@ -50,7 +50,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 
 + (MBProgressHUD *)showOnlyLoadToView:(UIView *)view {
-   return settHUD(view, nil, NO);
+    return settHUD(view, nil, NO);
 }
 
 + (void)showOnlyTextToView:(UIView *)view title:(NSString *)title {
@@ -113,12 +113,6 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     return hud;
 }
 
-+ (MBProgressHUD *)showLoadToView:(UIView *)view contentStyle:(NHHUDContentStyle)contentStyle title:(NSString *)title {
-    MBProgressHUD *hud = settHUD(view, title, NO);
-    hud.hudContentStyle(contentStyle);
-    return hud;
-}
-
 
 + (void)showTitleToView:(UIView *)view
            contentStyle:(NHHUDContentStyle)contentStyle
@@ -128,6 +122,15 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
     hud.mode = MBProgressHUDModeText;
     hud.hudContentStyle(contentStyle);
     [hud hideAnimated:YES afterDelay:delay];
+}
+
++ (MBProgressHUD *)showTitleToView:(UIView *)view
+           contentStyle:(NHHUDContentStyle)contentStyle
+                  title:(NSString *)title {
+    MBProgressHUD *hud = settHUD(view, title, NO);
+    hud.mode = MBProgressHUDModeText;
+    hud.hudContentStyle(contentStyle);
+    return hud;
 }
 
 
@@ -181,7 +184,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 
 + (void)showCustomView:(UIImage *)image toView:(UIView *)toView title:(NSString *)title {
-
+    
     MBProgressHUD *hud = settHUD(toView, title, YES);
     // Set the custom view mode to show any view.
     hud.mode = MBProgressHUDModeCustomView;
@@ -194,7 +197,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 + (MBProgressHUD *)showModelSwitchToView:(UIView *)toView
                                    title:(NSString *)title
-                                configHud:(NHCurrentHud)configHud {
+                               configHud:(NHCurrentHud)configHud {
     MBProgressHUD *hud = settHUD(toView, title, NO);
     // Will look best, if we set a minimum size.
     hud.minSize = CGSizeMake(150.f, 100.f);
@@ -214,7 +217,7 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
 
 + (MBProgressHUD *)showDownWithNSProgress:(NSProgress *)Progress
                                    toView:(UIView *)view title:(NSString *)title
-                                 configHud:(NHCurrentHud)configHud {
+                                configHud:(NHCurrentHud)configHud {
     MBProgressHUD *hud = settHUD(view, title, NO);
     if (configHud) {
         configHud(hud);
@@ -410,18 +413,15 @@ NS_INLINE MBProgressHUD *settHUD(UIView *view, NSString *title, BOOL autoHidden)
             
         } else if (hudProgressStyle == NHHUDProgressAnnularDeterminate) {
             self.mode = MBProgressHUDModeAnnularDeterminate;
-
+            
         } else if (hudProgressStyle == NHHUDProgressCancelationDeterminate) {
             self.mode = MBProgressHUDModeDeterminate;
-
+            
         } else if (hudProgressStyle == NHHUDProgressDeterminateHorizontalBar) {
             self.mode = MBProgressHUDModeDeterminateHorizontalBar;
-
+            
         }
         return self;
     };
 }
-
-
-
 @end
