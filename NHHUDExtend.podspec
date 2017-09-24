@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-   s.platform     = :ios
+  # s.platform     = :ios
    s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
@@ -90,6 +90,8 @@ Pod::Spec.new do |s|
   #  For header files it will include any header in the folder.
   #  Not including the public_header_files will make all headers public.
   #
+
+   s.dependency 'MBProgressHUD', '~> 1.0.0'
 
   s.source_files  = "NHHUDExtend/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
@@ -130,9 +132,8 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-   s.dependency "MBProgressHUD"
 
 end

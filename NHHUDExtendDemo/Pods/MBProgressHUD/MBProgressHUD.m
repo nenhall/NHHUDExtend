@@ -80,10 +80,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
     for (UIView *subview in subviewsEnum) {
         if ([subview isKindOfClass:self]) {
-            MBProgressHUD *hud = (MBProgressHUD *)subview;
-            if (hud.hasFinished == NO) {
-                return hud;
-            }
+            return (MBProgressHUD *)subview;
         }
     }
     return nil;
@@ -787,7 +784,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (void)updateForCurrentOrientationAnimated:(BOOL)animated {
     // Stay in sync with the superview in any case
     if (self.superview) {
-        self.frame = self.superview.bounds;
+        self.bounds = self.superview.bounds;
     }
 
     // Not needed on iOS 8+, compile out when the deployment target allows,
