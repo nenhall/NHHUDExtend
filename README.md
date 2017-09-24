@@ -32,8 +32,9 @@
 >*  NHHUDContentBlackStyle = 1,//黑底白字
 >*  NHHUDContentCustomStyle = 2,
 >*/
-> 如果你的项目大部份需要的是“黑底白字”风格，那么你将下属性改成1，如果0和1都不是，那么请‘NHDefaultHudStyle’设置为2，并同时设置下面两个颜色属性宏:`NHCustomHudStyleBackgrandColor 、 NHCustomHudStyleContentColor`。
->/#define NHDefaultHudStyle  1
+> 如果你的项目大部份需要的是“黑底白字”风格，那么你将下属性改成1，如果0和1都不是，那么请‘NHDefaultHudStyle’设置为2，并同时设置下面两个颜色属性宏:
+`NHCustomHudStyleBackgrandColor 、 NHCustomHudStyleContentColor`。
+#define NHDefaultHudStyle  1
 
 /
 
