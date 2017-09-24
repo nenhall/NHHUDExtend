@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "NHHUDExtend"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "MBProgressHUD的封装，使用方便、快捷"
 
   # This description is used to generate tags and improve search results.
@@ -93,7 +93,8 @@ Pod::Spec.new do |s|
 
    s.dependency 'MBProgressHUD', '~> 1.0.0'
 
-  s.source_files  = "NHHUDExtend/**/*.{h,m}"
+  s.source_files  = "NHHUDExtend/*.{h,m}"
+
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
