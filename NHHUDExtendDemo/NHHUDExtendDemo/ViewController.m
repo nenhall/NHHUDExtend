@@ -79,8 +79,17 @@
                                      title:_listTitle[row]];
             break;
             
-        case 2:
-            [MBProgressHUD showOnlyLoadToView:self.view];
+        case 2:{
+            MBProgressHUD* hud = [MBProgressHUD showOnlyLoadToView:self.view];
+            
+            // 这样获取当前的实例对象，此时的： hud2 == hud
+//            MBProgressHUD* hud2 = [MBProgressHUD HUDForView:self.view];
+            
+            //已经消失的时候
+            [hud setCompletionBlock:^{
+                NSLog(@"消失了...");
+            }];
+        }
             break;
         
         case 3:

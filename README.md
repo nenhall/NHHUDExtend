@@ -12,7 +12,7 @@
 * 支持链式语法；
 * 项目中难免会有几个界面的提示框需求特别，这时你可以使用链式语法来全方面的定制风格；
 
-<br />
+<br>
 
 ##### 全局配置：
 ###### MBProgressHUD+NHAdd.h
@@ -20,13 +20,13 @@
 >##### 1，所有类方法中有返回本类的，则不会自动消失，返回值为void的都会自动消失(默认值:delayTime)
 >##### 2，蒙层默认为清除色，给`hudBackgroundColor`设置颜色就会自动有
 
-/
+
 
 >//持续显示时间设置(默认1.2s)：
 >UIKIT_EXTERN CGFloat const delayTime;
 
-/
- 
+
+
 >/**设置默认的风格：默认为淡灰白色背景 = 0，文字及加载图颜色为黑色
 >*  NHHUDContentDefaultStyle = 0,//默认是白底黑字 Default
 >*  NHHUDContentBlackStyle = 1,//黑底白字
@@ -36,7 +36,7 @@
 `NHCustomHudStyleBackgrandColor 、 NHCustomHudStyleContentColor`。
 #define NHDefaultHudStyle  1
 
-/
+
 
 >风格为自定义时(NHHUDContentCustomStyle)，在这里设置颜色
  >//背景颜色
@@ -45,7 +45,7 @@
 >\#define NHCustomHudStyleContentColor    [UIColor colorWithWhite:1.f alpha:0.7f]
 
 
-```
+```objective-c
 //内容风格
 typedef NS_ENUM(NSInteger, NHHUDContentStyle) {
     NHHUDContentDefaultStyle = 0,//默认是白底黑字 Default
@@ -69,8 +69,9 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 };
 ```
 ![](https://github.com/neghao/NHHUDExtend/blob/master/NHHUDExtend.gif)
-##### 示例方法
-```
+<details><summary>Objective-C 示例方法</summary>
+
+```objective-c
 /**
  纯加载图
  */
@@ -198,8 +199,11 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 + (MBProgressHUD *)showLoadToView:(UIView *)view contentColor:(UIColor *)contentColor title:(NSString *)title;
 ```
 
-#### 使用方法示例：
-```
+</details>
+
+<details><summary>使用方法示例：</summary>
+
+```objective-c
 //只有文字，显示位置在下面
 [MBProgressHUD showTitleToView:self.view postion:NHHUDPostionBottom title:_listTitle[row]];
 
@@ -243,7 +247,13 @@ NSProgress *progressObject = [NSProgress progressWithTotalUnitCount:100];
                 hud.bezelBackgroundColor(UIColor.greenColor);
                 hud.hudBackgroundColor([[UIColor blueColor] colorWithAlphaComponent:0.2]);
             }];
+            
+            
+//已经消失的时候
+[hud setCompletionBlock:^{
+     NSLog(@"消失了...");
+}];
 ```
 
-            
+</details>            
 
