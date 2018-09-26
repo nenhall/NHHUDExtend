@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 };
 ```
 ![](https://github.com/neghao/NHHUDExtend/blob/master/NHHUDExtend.gif)
-<details><summary>Objective-C 示例方法</summary>
+<details><summary>Objective-C 方法展示</summary>
 
 ```objective-c
 /**
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSInteger, NHHUDProgressStyle) {
 
 </details>
 
-<details><summary>使用方法示例：</summary>
+<details><summary>Objective-C 使用方法示例：</summary>
 
 ```objective-c
 //只有文字，显示位置在下面
